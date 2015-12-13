@@ -8,6 +8,7 @@ After cloning change into the clone directory and do
 
 ``` sh
 npm install
+cp src/config.dist.hson src/config.hson
 npm run dev
 ```
 
