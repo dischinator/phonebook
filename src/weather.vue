@@ -17,6 +17,12 @@
 
 <script type="text/ecmascript-6">
     export default {
+        props: {
+            location: {
+                type: String,
+                required: true
+            }
+        },
         ready () {
             this.updateWeather();
 
@@ -44,7 +50,7 @@
         },
         methods: {
             updateWeather () {
-                this.$http.get("https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='mühlheim') and u='c'&format=json", function (data, status, request) {
+                this.$http.get("https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='" + this.location + "') and u='c'&format=json", function (data, status, request) {
                     this.weatherData = data;
                     this.temperature = data.query.results.channel.item.condition.temp + '° C';
                     console.log('wetter aktualisiert');

@@ -9,7 +9,7 @@
 </style>
 
 <template>
-    <weather></weather>
+    <weather :location="location"></weather>
     <div>
         <label>Filter <input v-model="filter" debounce="100"></label>
     </div>
@@ -36,8 +36,12 @@
             PhoneNumber,
             Weather
         },
-        ready () {
+        created () {
+            // load configuration as early as possible
             this.config = require('./config.hson');
+            this.location = this.config.location;
+        },
+        ready () {
             this.loadEntries();
             console.log('ready ended');
         },
@@ -47,7 +51,8 @@
                 showPhoneNumbers: true,
                 numbers: [],
                 newName: '',
-                newNumber: ''
+                newNumber: '',
+                location: ''
             }
         },
         methods: {
